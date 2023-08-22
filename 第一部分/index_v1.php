@@ -9,9 +9,9 @@ if ($conn->connect_error) {
     die("連接失敗：" . $conn->connect_error);
 }
 //
-$result = $conn->query("SELECT dht22_temp1 FROM sensor_data ORDER BY datetime DESC LIMIT 1");
+$result = $conn->query("SELECT bmp_temp FROM sensor_data ORDER BY datetime DESC LIMIT 1");
 $row = $result->fetch_assoc();
-$temp = $row["dht22_temp1"];   
+$temp = $row["bmp_temp"];   
 //echo "目前溫度：".$temp. "<br>";
 //
 $result = $conn->query("SELECT dht22_humd1 FROM sensor_data ORDER BY datetime DESC LIMIT 1");
@@ -22,18 +22,18 @@ $humd = $row["dht22_humd1"];
 $result = $conn->query("SELECT datetime FROM sensor_data ORDER BY datetime DESC LIMIT 1");
 $row = $result->fetch_assoc(); 
 $datetime = $row["datetime"];   
-$datetime = date("h:i A", strtotime($datetime));  
+$datetime = date("h:i:s A", strtotime($datetime));  
 //echo "最新數據時間：" . $datetime . "<br>";
 //
-$result = $conn->query("SELECT dht22_temp1, datetime FROM sensor_data WHERE DATE(datetime) = CURDATE() ORDER BY dht22_temp1 DESC LIMIT 1");
+$result = $conn->query("SELECT bmp_temp, datetime FROM sensor_data WHERE DATE(datetime) = CURDATE() ORDER BY bmp_temp DESC LIMIT 1");
 $row = $result->fetch_assoc();
-$maxTemp = $row['dht22_temp1'];  
+$maxTemp = $row['bmp_temp'];  
 //echo "當天最高氣溫：" . $maxTemp . "<br>";
 $maxtemp_datetime = $row['datetime']; 
 $maxtemp_datetime = date("h:i A", strtotime($maxtemp_datetime));  
 //echo "當天最高氣溫時間：" . $maxtemp_datetime . "<br>";
 //
-$result = $conn->query("SELECT MIN(dht22_temp1) AS min_temp, datetime FROM sensor_data WHERE DATE(datetime) = CURDATE()");
+$result = $conn->query("SELECT MIN(bmp_temp) AS min_temp, datetime FROM sensor_data WHERE DATE(datetime) = CURDATE()");
 $row = $result->fetch_assoc();
 $minTemp = $row['min_temp'];  
 //echo "當天最低氣溫：" . $minTemp . "<br>";
