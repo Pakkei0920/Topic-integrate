@@ -1,0 +1,82 @@
+<?php
+
+$data = $_POST['data'];
+
+if ($data == '1') {
+    // 生成logs.txt文件并写入数据
+    $logFile = fopen("button_logs.txt", "a");
+    
+    if ($logFile) {
+        fwrite($logFile, "Button pressed - " . date("Y-m-d H:i:s") . "\n");
+        fclose($logFile);
+        echo "Button pressed data received and logged.";
+        
+for ($i = 1; $i <= 3; $i++) {
+        //Line API
+        $channelAccessToken = 'RYx398mxwhtxFlsC6DT7bQBFn3iSDYlr+Qtrdcz4IYnq0Wj1/4vdyuuAcOOiSMEUroDLhPw9kVk4wYXAt8yP6hcHPUqy3r/eRXFB1/4IRPZ4gR2OenZ84CdKMgdo7i7YYXv//5EEG4lWg+lNkeCP1AdB04t89/1O/w1cDnyilFU=';
+        $userId = 'U2059804cf115fe02c13b4b87d1e12a68';
+
+        $message = [
+            'type' => 'text',
+            'text' => '危險！請關注家庭老人狀況！',];
+        $data = [
+            'to' => $userId,
+            'messages' => [$message],];
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $channelAccessToken,];
+        
+        $ch = curl_init('https://api.line.me/v2/bot/message/push');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+}
+     //////////////////////////////////////////////////////////////////
+        $channelAccessToken = 'RYx398mxwhtxFlsC6DT7bQBFn3iSDYlr+Qtrdcz4IYnq0Wj1/4vdyuuAcOOiSMEUroDLhPw9kVk4wYXAt8yP6hcHPUqy3r/eRXFB1/4IRPZ4gR2OenZ84CdKMgdo7i7YYXv//5EEG4lWg+lNkeCP1AdB04t89/1O/w1cDnyilFU=';
+        $userId = 'U2059804cf115fe02c13b4b87d1e12a68';
+
+        // 設定要發送的訊息
+        $message = [
+            'type' => 'text',
+            'text' => "緊急警報日誌記錄:\n".'https://topics.paki91.com/ETL/button_logs.txt',
+        ];
+
+        $data = [
+            'to' => $userId,
+            'messages' => [$message],
+        ];
+
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $channelAccessToken,
+        ];
+
+        // 使用 cURL 發送訊息
+        $ch = curl_init('https://api.line.me/v2/bot/message/push');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // 檢查回應
+        if ($response === false) {
+            // 發送失敗
+            echo '發送訊息失敗：' . curl_error($ch);
+        } else {
+            // 發送成功
+            echo '訊息成功發送！';
+        }
+
+        
+    }
+} else {
+    echo "Invalid data received.";
+}
+?>
