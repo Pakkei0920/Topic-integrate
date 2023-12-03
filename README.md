@@ -1,6 +1,6 @@
 # Topic-integrate
 Student Graduation Project - 居家老人IoT雙向感測照料系統
-</p>項目供應商/服務商:
+<p>項目供應商/服務商:</p>
 ![image](https://github.com/Pakkei0920/Topic-integrate/assets/106027537/5e9b78a8-8b38-4339-9b59-58ab4351eabe)
 
 ![項目供應商服務商](https://github.com/Pakkei0920/Topic-integrate/assets/106027537/826d5765-b297-4db4-aaeb-aaa1a195b5f4)
